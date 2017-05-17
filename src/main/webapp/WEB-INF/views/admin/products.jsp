@@ -73,8 +73,8 @@
 					<td>${product.product_Description}</td>
 					<td>${product.getCategory().category_name}</td>
 
-					<td><a href="manage_product_delete/${product.product_Id}"> Delete | </a></td>
-					<td><a href="manage_product_edit/${product.product_Id}"> Edit </a></td>
+					<td><a href="manage_product_delete/${product.product_Id}">Delete</a></td>
+					<td><a href="manage_product_edit/${product.product_Id}">Edit</a></td>
 
 
 				</tr>

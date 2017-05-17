@@ -94,10 +94,10 @@ public class ProductController {
 	}
 	
 	
-	/*------------------------------------- Delete Product -------------------------------*/
-	/*
+	//delete product
+	
 	@RequestMapping("/manage_product_delete/{id}")				// attached to url with path variable
-	public ModelAndView deleteProduct(@PathVariable("id") String id)
+	public ModelAndView deleteProduct(@PathVariable("id") long id)
 	{
 		
 		ModelAndView mv = new ModelAndView("redirect:/manageProducts");
@@ -106,8 +106,9 @@ public class ProductController {
 		mv.addObject("isAdminClickedProducts","true");
 		mv.addObject("isAdmin","true");
 		
+		product=productDAO.get(id);
 		
-		if (productDAO.delete(productDAO.getProductById(id))==true) 
+		if (productDAO.deleteProduct(product)==true) 
 		{
 			mv.addObject("message"," Successfully deleted the product");
 		}
@@ -205,6 +206,26 @@ public class ProductController {
 	}
 	
 	
+	//category selection by customer
+	@RequestMapping("/select_category/{id}")
+	public ModelAndView selectCategory(@PathVariable("id") long id)
+	{
+		System.out.println("inside category selection");
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("Home");
+		category=categoryDAO.getCategoryByID(id);
+		System.out.println("1111inside category selection2");
+
+		session.setAttribute("categorisedPlist", productDAO.getProductsByCategory(category));
+		session.setAttribute("produtct", product);
+		mv.addObject("isUserSelectedCategory","true");
+		System.out.println("2222inside category selection2");
+
+		return mv;
+		
+		
+		
+	}
 }
 
 

@@ -18,20 +18,21 @@
 
 		<form action="manage_category_add">
 
-			<input type="text" name="name" placeholder="Category Name"> 
-			<input type="submit" value="Create Category">
+			<input type="text" name="name" placeholder="Category Name"> <input
+				type="submit" value="Create Category">
 		</form>
 
 	</div>
-	
-	
+
+
 	<div id="UpdateCategory">
 
 		<form action="manage_category_update" method="post">
 
-			<input type="text" name="id" value="${selectedCategory.id}" >
-			<input type="text" name="name" value="${selectedCategory.name}" required="required">
-			<input	type="submit" value="Update Category">
+			<input type="text" name="id" value="${selectedCategory.category_id}">
+			<input type="text" name="name" value="${selectedCategory.category_name}"
+				required="required"> <input type="submit"
+				value="Update Category">
 		</form>
 
 	</div>
@@ -53,43 +54,15 @@
 				<tr>
 					<td>${category.category_id}</td>
 					<td>${category.category_name}</td>
-					
+
 
 					<td><a href="manage_category_delete/${category.category_id}">
-							<font color="red">Delete </font> | </a>
-						 <a href="manage_category_update/${category.category_id}"> Edit </a></td>
-
-
+							<font color="red">Delete </font> |
+					</a><a href="manage_category_edit/${category.category_id}"> Edit
+					</a></td>
 				</tr>
-
-
-
-
-
-
 			</c:forEach>
-
-
 		</table>
-
 	</div>
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

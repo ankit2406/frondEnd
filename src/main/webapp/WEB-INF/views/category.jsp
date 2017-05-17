@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Select Category</title>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -13,41 +13,24 @@
 
 
 
-	<h2>Manage Categories</h2>
+	<h2>Select Category</h2>
 
-	<div id="CreateCategory">
 
-		<form action="manage_category_add">
-
-			<input type="text" name="name"> 
-			<input type="text" name="description"> 
-			<input type="submit" value="Create Category">
-		</form>
-
-	</div>
-
-	<h2>Delete / Update the Categories</h2>
+		
 	<div id="ShowCategories">
 
 		<table border="2">
-			<thead>
-				<tr>
-					<td>Category ID</td>
-					<td>Category Name</td>
-					<td>Category Description</td>
-					<td>Action</td>
-				</tr>
-			</thead>
+			
 
 			<c:forEach var="category" items="${categoryList}">
 
 				<tr>
-					<td>${category.id}</td>
-					<td>${category.name}</td>
+		
+					
 					
 
-					<td><a href="manage_category_delete/${category.id}">
-							Delete | </a> <a href=""> Update </a></td>
+					<td><a href="select_category/${category.category_id}">
+						${category.category_name} </a> 
 
 
 

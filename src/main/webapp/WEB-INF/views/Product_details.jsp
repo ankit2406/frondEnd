@@ -7,6 +7,14 @@
 <title>Product Details </title>
 </head>
 <body>
+	
+	<h3>Product Details</h3>
+	
+	ID: ${selectedProduct.product_id}
+	Name:
+	Description:
+	Price
+	
 
 </body>
 </html>

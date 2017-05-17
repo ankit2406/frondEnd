@@ -76,6 +76,9 @@
 
 	</c:if>
 
+	<c:if test="${isUserSelectedCategory=='true' }">
+		<jsp:include page="products.jsp"></jsp:include>
 
+	</c:if>
 </body>
 </html>
