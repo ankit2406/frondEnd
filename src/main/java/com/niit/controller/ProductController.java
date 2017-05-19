@@ -43,7 +43,7 @@ public class ProductController {
 	//create product
 	
 	@RequestMapping("/manage_product_add")
-	public ModelAndView createProduct(@RequestParam("id") long id,@RequestParam("brand") String brand, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("description") String description, @RequestParam("category_id") long category_id)
+	public ModelAndView createProduct(@RequestParam("brand") String brand, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("description") String description, @RequestParam("category_id") long category_id)
 	{
 		log.debug("Starting of the method createProduct");
 		category= categoryDAO.getCategoryByID(category_id);
@@ -72,7 +72,7 @@ public class ProductController {
 		if (productDAO.getProductByName(name) != null) //check whether product already exist or not
 		{
 
-				mv.addObject("message","Product Already Exist with the id "+id);
+				mv.addObject("message","Product Already Exist with the name ");
 		
 				return mv;
 			
@@ -211,13 +211,12 @@ public class ProductController {
 	public ModelAndView selectCategory(@PathVariable("id") long id)
 	{
 		System.out.println("inside category selection");
-		ModelAndView mv=new ModelAndView();
-		mv.setViewName("Home");
+		ModelAndView mv=new ModelAndView("Home");
 		category=categoryDAO.getCategoryByID(id);
 		System.out.println("1111inside category selection2");
 
 		session.setAttribute("categorisedPlist", productDAO.getProductsByCategory(category));
-		session.setAttribute("produtct", product);
+		session.setAttribute("product", product);
 		mv.addObject("isUserSelectedCategory","true");
 		System.out.println("2222inside category selection2");
 

@@ -15,7 +15,7 @@
 
 	<div id="CreateProduct">
 
-		<form action="manage_product_add" method="post">
+		<form action="manage_product_add">
 
 			<input type="text" name="name" placeholder="Product Name"> 
 			<input type="text" name="brand"	placeholder="Product Brand"> 

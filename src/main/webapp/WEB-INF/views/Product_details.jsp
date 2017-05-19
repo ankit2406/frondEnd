@@ -11,9 +11,12 @@
 	<h3>Product Details</h3>
 	
 	ID: ${selectedProduct.product_id}
-	Name:
-	Description:
-	Price
+	Name:${selectedProduct.product_name}
+	Brand: ${selectedProduct.brand}
+	Description:${selectedProduct.product.product_description}
+	Price:${selectedProduct.price }
+	
+	<a href="Cart_add/${selectedProduct.product_id}">Add to cart</a>
 	
 
 </body>

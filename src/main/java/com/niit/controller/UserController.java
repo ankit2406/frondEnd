@@ -54,6 +54,7 @@ public class UserController
 				 mv.addObject("isAdmin", "false");
 				 session.setAttribute("role", "BUYER");
 			 }
+			 session.setAttribute("userId", user.getUser_id());
 
 		} 
 		else 
