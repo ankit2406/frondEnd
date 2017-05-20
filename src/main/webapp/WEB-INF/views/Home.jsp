@@ -27,7 +27,7 @@
 
 	<a href="RegistrationPage"> Signup</a> &nbsp; &nbsp; &nbsp;
 
-	<a href="">Logout</a>
+	<a href="j_spring_security_Logout">Logout</a>
 
 	<jsp:include page="HeaderMenu.jsp"></jsp:include>
 
