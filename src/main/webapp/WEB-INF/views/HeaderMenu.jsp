@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <title>Header Menu</title>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,6 +19,13 @@
     <li><a href="categoryPage">Supplements</a></li>
     <li><a href="#">About Us</a></li>
     <li><a href="#">Contact Us</a></li>
+    
+	<c:if test="${userId!=null}">
+
+	    <li><a href="myCart">Cart</a></li>
+	
+
+	</c:if>
     
   </ul>
 </div>

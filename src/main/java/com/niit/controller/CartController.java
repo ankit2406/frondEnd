@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.ShopBackEndd.Dao.CartDAO;
@@ -161,23 +162,53 @@ public class CartController {
 		 * }
 		 */
 
-		if (loggedInUserid != 0L) {
+		if (loggedInUserid != 0L) 
+		{
 			user = userDAO.getUserById(loggedInUserid);
 			cart = user.getCart();
 			int cartSize = cart.getCartItemCount();
 
-			if (cartSize == 0) {
+			if (cartSize == 0) 
+			{
 				model.addAttribute("errorMessage", "You do not have any products in your Cart");
-			} else {
+			} 
+			else 
+			{
 				model.addAttribute("cartList", cartItemDAO.cartItemGetByCart(cart));
 				model.addAttribute("totalAmount", cart.getGrandTotal());
 				model.addAttribute("displayCart", "true");
 				model.addAttribute("cart", cart);
 
 			}
+			model.addAttribute("isUserClickedCart","true");
 
 		}
 		log.debug("Ending of the method myCart");
-		return "/home";
+		return "/Home";
+	}
+	
+	@RequestMapping("/cart_delete/{id}")
+	public String delCart(Model model,@PathVariable("id") long id)
+	{
+		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
+		
+		if(loggedInUserid!=0L)
+		{
+			user = userDAO.getUserById(loggedInUserid);
+			cart = user.getCart();
+			int oldCartQty=cart.getCartItemCount();
+			cartItem=cartItemDAO.getCartItemByCartItem_Id(id);
+			cart.setCartItemCount(oldCartQty-cartItem.getSell_quantity());
+			cart.setGrandTotal(cart.getGrandTotal()-cartItem.getTotal_price());
+			cartItemDAO.deleteCartItem(cartItem);
+			
+		}
+		model.addAttribute("cartList", cartItemDAO.cartItemGetByCart(cart));
+		model.addAttribute("totalAmount", cart.getGrandTotal());
+		model.addAttribute("displayCart", "true");
+		model.addAttribute("cart", cart);
+		model.addAttribute("isUserClickedCart","true");
+
+		return "/Home";
 	}
 }

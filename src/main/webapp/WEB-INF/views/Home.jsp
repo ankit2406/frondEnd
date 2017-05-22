@@ -80,5 +80,9 @@
 		<jsp:include page="products.jsp"></jsp:include>
 
 	</c:if>
+	<c:if test="${isUserClickedCart=='true' }">
+		<jsp:include page="myCart.jsp"></jsp:include>
+
+	</c:if>
 </body>
 </html>
