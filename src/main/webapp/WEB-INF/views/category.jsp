@@ -25,14 +25,15 @@
 			<c:forEach var="category" items="${categoryList}">
 
 				<tr>
-		
+					<form action="select_category">
+					
+					<input type="hidden" name="category_id" value="${category.category_id}">
+					<input type="submit" value="${category.category_name}">
+					 
+
 					
 					
-
-					<td><a href="select_category/${category.category_id}">
-						${category.category_name} </a> 
-
-
+					</form>
 
 				</tr>
 

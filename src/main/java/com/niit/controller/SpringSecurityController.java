@@ -81,7 +81,7 @@ public class SpringSecurityController {
 		model.addAttribute("errorMessage", "You are not authorized to access this page");
 
 		log.debug("Ending of the method accessDenied");
-		return "home";
+		return "Home";
 
 	}
 	// <security:form-login authentication-success-forward-url="/success"/>
@@ -113,11 +113,11 @@ public class SpringSecurityController {
  * @return
  * @throws Exception
  */
-	//@RequestMapping(value = "validate", method = RequestMethod.GET)
-	@RequestMapping(value = "checkRole", method = RequestMethod.GET)
+	@RequestMapping(value = "/validate", method = RequestMethod.GET)
+	//@RequestMapping(value = "/checkRole", method = RequestMethod.GET)
 	public ModelAndView checkRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		log.debug("starting of the method validate");
-		ModelAndView mv = new ModelAndView("home");
+		ModelAndView mv = new ModelAndView("Home");
 		// session = request.getSession(true);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String uID = auth.getName();

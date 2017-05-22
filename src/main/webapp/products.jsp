@@ -12,14 +12,14 @@
 <body>
 	<h3>Products </h3>
 	<c:forEach var="product" items="${categorisedPlist}">
-	ID: ${product.product_Id}
-	Name:<a href="product_details/${product.product_Id}"> ${product.product_Name} </a>
-	Brand:${product.getBrand()}
-	Price:${product.getPrice()}
-	Description:${product.product_Description}
+	ID: ${product.product_Id} <br>
+	Name:<a href="product_details/${product.product_Id}"> ${product.product_Name} </a><br>
+	Brand:${product.getBrand()}<br>
+	Price:${product.getPrice()}<br>
+	Description:${product.product_Description}<br>
 	
 	<a href="Cart_add/${product.product_Id}">Add to cart</a>
-	
+	<br><br>
 	</c:forEach>
 </body>
 </html>

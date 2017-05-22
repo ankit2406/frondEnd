@@ -14,7 +14,7 @@
 <body>
 
 
-	<form class="form-horizontal" action="validate">
+	<form class="form-horizontal" action="login">
 
 		<div class="form-group">
 

@@ -26,7 +26,7 @@ public class UserController
 	@Autowired  HttpSession session;
 	
 	
-	@RequestMapping("/validate")
+	@RequestMapping("/validates")
 	public ModelAndView login(@RequestParam("email") String email,
 			@RequestParam("password") String password) 
 	{

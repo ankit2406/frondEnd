@@ -15,14 +15,14 @@
 
 	<div id="CreateProduct">
 
-		<form action="manage_product_add" method="POST" enctype="multipart/form-data">
+		<form action="manage_product_add">
 
 			<input type="text" name="name" placeholder="Product Name"> 
 			<input type="text" name="brand"	placeholder="Product Brand"> 
 			<input type="text" name="price"	placeholder="Product Price">			
 			<input type="text" name="description" placeholder="Description"> 
 			<input type="text" name="category_id" placeholder="Category ID" required="required">
-			<input type="file" placeholder="Upload Image" name="file">  
+			<input type="file" placeholder="Upload Image" name="file"/>  
 				<input type="submit" value="Create Product">
 
 		</form>
