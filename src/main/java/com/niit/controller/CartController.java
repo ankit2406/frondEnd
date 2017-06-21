@@ -1,5 +1,7 @@
 package com.niit.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -192,6 +194,17 @@ public class CartController {
 	{
 		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
 		
+		user = userDAO.getUserById(loggedInUserid);
+		// product = productDAO.get(id); //user = userDao.getUserById(); 
+		 cart  = user.getCart(); 
+		 List<CartItem> cartitems = cart.getCartList();
+		  
+		  for(CartItem cartItem1:cartitems) 
+		  {
+			  product = cartItem1.getProduct();
+			  System.out.println(product.getBrand()); 
+		  } 
+		/*
 		if(loggedInUserid!=0L)
 		{
 			user = userDAO.getUserById(loggedInUserid);
@@ -202,7 +215,7 @@ public class CartController {
 			cart.setGrandTotal(cart.getGrandTotal()-cartItem.getTotal_price());
 			cartItemDAO.deleteCartItem(cartItem);
 			
-		}
+		} */
 		model.addAttribute("cartList", cartItemDAO.cartItemGetByCart(cart));
 		model.addAttribute("totalAmount", cart.getGrandTotal());
 		model.addAttribute("displayCart", "true");

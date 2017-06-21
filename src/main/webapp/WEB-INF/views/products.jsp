@@ -13,7 +13,8 @@
 	<h3>Products </h3>
 	<c:forEach var="product" items="${categorisedPlist}">
 	ID: ${product.product_Id}
-	Name:<a href="product_details/${product.product_Id}"> ${product.product_Name} </a>
+	Name:<form action="product_details"> <input type="hidden" name="id" value="${product.product_Id }">
+	<input type="submit" value= "${product.product_Name}"> </form>
 	Brand:${product.getBrand()}
 	Price:${product.getPrice()}
 	Description:${product.product_Description}

@@ -236,4 +236,16 @@ public class ProductController {
 
 		return mv1;		
 	}
+	
+	@RequestMapping("/product_details")
+	public ModelAndView productDetails(@RequestParam("id") long id)
+	{
+		ModelAndView mv=new ModelAndView("Home");
+		System.out.println("inside product details "+id);
+		product=productDAO.get(id);
+		session.setAttribute("selectedProduct",product);
+		mv.addObject("isProductDetails", "true");
+		return mv;
+	}
+	
 }

@@ -23,11 +23,21 @@
 	${message}
 	<hr color="blue">
 
-	<a href="LoginPage"> Signin</a> /
 
-	<a href="RegistrationPage"> Signup</a> &nbsp; &nbsp; &nbsp;
+	<c:choose>
+		<c:when test="${userId!=null}">
+   	 		welcome <%=session.getAttribute("uname")%>
+			<a href="manage_logout">Logout</a>
 
-	<a href="j_spring_security_Logout">Logout</a>
+		</c:when>
+		<c:otherwise>
+			<a href="LoginPage"> Signin</a>
+			<a href="RegistrationPage"> Signup</a> &nbsp; &nbsp; &nbsp;
+	
+   	 </c:otherwise>
+	</c:choose>
+
+
 
 	<jsp:include page="HeaderMenu.jsp"></jsp:include>
 
@@ -80,8 +90,24 @@
 		<jsp:include page="products.jsp"></jsp:include>
 
 	</c:if>
+
 	<c:if test="${isUserClickedCart=='true' }">
 		<jsp:include page="myCart.jsp"></jsp:include>
+
+	</c:if>
+	
+	<c:if test="${isProductDetails=='true' }">
+		<jsp:include page="Product_details.jsp"></jsp:include>
+
+	</c:if>
+	
+	<c:if test="${isAboutUs=='true' }">
+		<jsp:include page="about_us.jsp"></jsp:include>
+
+	</c:if>
+	
+	<c:if test="${isContactUs=='true' }">
+		<jsp:include page="contact_us.jsp"></jsp:include>
 
 	</c:if>
 </body>

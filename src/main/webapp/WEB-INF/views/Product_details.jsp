@@ -10,13 +10,13 @@
 	
 	<h3>Product Details</h3>
 	
-	ID: ${selectedProduct.product_id}
-	Name:${selectedProduct.product_name}
-	Brand: ${selectedProduct.brand}
-	Description:${selectedProduct.product.product_description}
-	Price:${selectedProduct.price }
+	ID: ${selectedProduct.product_Id} <br>
+	Name:${selectedProduct.product_Name}<br>
+	Brand: ${selectedProduct.getBrand()}<br>
+	Description:${selectedProduct.product_Description}<br>
+	Price:${selectedProduct.getPrice() }<br>
 	
-	<a href="Cart_add/${selectedProduct.product_id}">Add to cart</a>
+	<a href="Cart_add/${selectedProduct.product_Id}">Add to cart</a><br>
 	
 
 </body>

@@ -17,8 +17,8 @@
   
     <li class="active"><a href="/">Home</a></li>
     <li><a href="categoryPage">Supplements</a></li>
-    <li><a href="#">About Us</a></li>
-    <li><a href="#">Contact Us</a></li>
+    <li><a href="aboutUs">About Us</a></li>
+    <li><a href="contactUs">Contact Us</a></li>
     
 	<c:if test="${userId!=null}">
 

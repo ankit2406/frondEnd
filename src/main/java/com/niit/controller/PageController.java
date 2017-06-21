@@ -23,6 +23,21 @@ public class PageController
 	@Autowired
 	UserDAO userDAO;
 	
+	@RequestMapping("/aboutUs")
+	public String about_us(Model mv)
+	{
+		mv.addAttribute("isAboutUs", "true");
+		return "Home";
+	}
+	
+	@RequestMapping("/contactUs")
+	public String contact_us(Model mv)
+	{
+		mv.addAttribute("isContactUs", "true");
+		return "Home";
+	}
+	
+	
 	/*@RequestMapping(value = { "/", "/index", "/home" })
 	public String index(Principal principal, Model model) {
 
