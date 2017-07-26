@@ -12,7 +12,7 @@
 <body>
 	<h3>Products </h3>
 	<c:forEach var="product" items="${categorisedPlist}">
-	ID: ${product.product_Id}
+	ID: ${product.product_Id} <br>
 	Name:<form action="product_details"> <input type="hidden" name="id" value="${product.product_Id }">
 	<input type="submit" value= "${product.product_Name}"> </form>
 	Brand:${product.getBrand()}

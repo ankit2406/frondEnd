@@ -193,17 +193,18 @@ public class CartController {
 	public String delCart(Model model,@PathVariable("id") long id)
 	{
 		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
-		
+		System.out.println(loggedInUserid+" "+id);
 		user = userDAO.getUserById(loggedInUserid);
-		// product = productDAO.get(id); //user = userDao.getUserById(); 
-		 cart  = user.getCart(); 
-		 List<CartItem> cartitems = cart.getCartList();
-		  
-		  for(CartItem cartItem1:cartitems) 
-		  {
-			  product = cartItem1.getProduct();
-			  System.out.println(product.getBrand()); 
-		  } 
+		System.out.println(user.getName());
+		 cart  = user.getCart();
+		 System.out.println(cart.getCart_Id());
+		// product = productDAO.get(id);
+		// System.out.println(product.getProduct_Name());
+		
+		cartItem=cartItemDAO.getCartItemByCartItem_Id(id);
+		 cartItemDAO.deleteCartItem(cartItem);
+		 System.out.println(cartItem.getCartItem_Id());
+		
 		/*
 		if(loggedInUserid!=0L)
 		{
