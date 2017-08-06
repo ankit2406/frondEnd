@@ -100,6 +100,7 @@ public class CartController {
 			cart.setGrandTotal(cart.getGrandTotal() + cartItem.getTotal_price());
 			cart.setCartItemCount(cart.getCartItemCount() + 1);
 			cartItem.setCart(cart);
+			System.out.println(cart.getCartItemCount()+" "+cart.getGrandTotal());
 			cartItemDAO.addCartItem(cartItem);
 		}
 		//cartItem=new CartItem();
@@ -197,13 +198,18 @@ public class CartController {
 		user = userDAO.getUserById(loggedInUserid);
 		System.out.println(user.getName());
 		 cart  = user.getCart();
+		 int oldCartQty=cart.getCartItemCount();
+		 int oldCartTotal=cart.getGrandTotal();
 		 System.out.println(cart.getCart_Id());
-		// product = productDAO.get(id);
-		// System.out.println(product.getProduct_Name());
+		 product = productDAO.get(id);
+		 // System.out.println(product.getProduct_Name());
 		
 		cartItem=cartItemDAO.getCartItemByCartItem_Id(id);
-		 cartItemDAO.deleteCartItem(cartItem);
 		 System.out.println(cartItem.getCartItem_Id());
+		cart.setGrandTotal((int) (oldCartTotal - cartItem.getTotal_price()));
+		cart.setCartItemCount(oldCartQty - cartItem.getSell_quantity());
+		cartItemDAO.deleteCartItem(cartItem);
+		cartDAO.updateCart(cart);
 		
 		/*
 		if(loggedInUserid!=0L)

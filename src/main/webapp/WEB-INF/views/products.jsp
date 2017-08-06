@@ -20,6 +20,7 @@
 	Description:${product.product_Description}
 	
 	<a href="Cart_add/${product.product_Id}">Add to cart</a>
+	Names: <a href="Product_detail/${product.product_Id}"> ${product.product_Name}</a>
 	
 	</c:forEach>
 </body>

@@ -53,7 +53,17 @@ public class HomeController
 		//return "Home"
 	}
 	
-	
+	/*
+	 @requestMapping("/login")
+	 public String login(@RequestParam(Value="error", required=false)String error,Model model)
+	 if(error != null)
+	 {
+	 	model.addAttribute("error", "Authentication Failed : Invalid Credential");
+	 }
+	 model.addAttribute("title", "Login");
+	 return mv;
+	 }
+	 */
 	@RequestMapping("/LoginPage")
 	public String loginPage(Model model)
 	{

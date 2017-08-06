@@ -136,7 +136,7 @@ public class SpringSecurityController {
 			// Fetch the myCart list based on user ID
 			User user=userDAO.getUserById(userID);
 			cart=user.getCart();
-			CartItem cartItem=(CartItem) cart.getCartList();
+			//CartItem cartItem=(CartItem) cart.getCartList();
 		//	List<CartItem> cartItemList = cartItemDAO.list(userID);
 	//		session.setAttribute("cartItemList", cartItemList);
 			session.setAttribute("cartSize", cart.getCartItemCount());

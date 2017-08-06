@@ -110,5 +110,10 @@
 		<jsp:include page="contact_us.jsp"></jsp:include>
 
 	</c:if>
+	
+	<c:if test="${isUserClickedCheckout=='true' }">
+		<jsp:include page="shippingDetails.jsp"></jsp:include>
+
+	</c:if>
 </body>
 </html>
