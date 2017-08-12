@@ -4,24 +4,54 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/product.css">
 
 <title>product</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 </head>
 <body>
-	<h3>Products </h3>
-	<c:forEach var="product" items="${categorisedPlist}">
-	ID: ${product.product_Id} <br>
-	Name:<form action="product_details"> <input type="hidden" name="id" value="${product.product_Id }">
-	<input type="submit" value= "${product.product_Name}"> </form>
-	Brand:${product.getBrand()}
-	Price:${product.getPrice()}
-	Description:${product.product_Description}
+
 	
-	<a href="Cart_add/${product.product_Id}">Add to cart</a>
-	Names: <a href="Product_detail/${product.product_Id}"> ${product.product_Name}</a>
+	<div class="container" style="margin-top:50px;">
+	<div class="row">
+		<c:forEach var="product" items="${categorisedPlist}">
 	
-	</c:forEach>
+    	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-item">
+                <div class="post-img-content ">
+                    <div class="absolute-aligned">
+                         <img src="<%=request.getContextPath()%>/resources/img/${product.product_Name}.jpg" class="img-responsive" />
+                    </div>
+                    <span class="round-tag">-15%</span>
+                </div>
+                <div class="info">
+                    <div class="row">
+                        <div class="price col-md-12">
+                            <div class="post-name-text">
+                            <h5> ${product.product_Name}</h5>
+                             </div>
+                            <div class="row">
+                                 <div class="price col-md-12">
+                                    <strong>Brand</strong><span class="pull-right">${product.getBrand()}</span>
+                                </div>
+                                <div class="price col-md-12">
+                                    <strong>Price</strong><span class="pull-right price-text-color">&#8377; ${product.getPrice()}</span>
+                                </div>
+                             </div>   
+                        </div>
+                    </div>
+                    <div class="separator clear-left">
+                        <p></p>
+                        <button id="add_d3af2e19a4e14c3029d5698e718dd210" class="btn btn-outline btn-primary btn-sm btn-block btnAddAction btn-primary " onclick="javascript:location.href='Cart_add/${product.product_Id}'" type="button">
+                        <i class="fa fa-shopping-cart fa-fw"></i>Add</button>
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </c:forEach>
+      
 </body>
 </html>

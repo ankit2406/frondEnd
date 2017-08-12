@@ -141,8 +141,10 @@ public class CartController {
 
 		// return "redirect:/views/home.jsp";
 
-		ModelAndView mv = new ModelAndView("redirect:/home");
-		mv.addObject("successMessage", " Successfuly add the product to Cart");
+		//ModelAndView mv = new ModelAndView("redirect:/home");
+		ModelAndView mv = new ModelAndView("/Home");
+
+		mv.addObject("message", " Product added to Cart...");
 		log.debug("Ending of the method addToCart");
 		return mv;
 

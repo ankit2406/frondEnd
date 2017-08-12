@@ -42,6 +42,12 @@
 	<jsp:include page="HeaderMenu.jsp"></jsp:include>
 
 
+	<c:if test="${HomePage=='true'}">
+
+		<jsp:include page="welcomePage.jsp"></jsp:include>
+
+	</c:if>
+
 	<c:if test="${isAdmin=='true'}">
 
 		<jsp:include page="admin/adminHome.jsp"></jsp:include>
@@ -115,5 +121,14 @@
 		<jsp:include page="shippingDetails.jsp"></jsp:include>
 
 	</c:if>
+	
+	<c:if test="${isOrderHistory=='true'}">
+		<jsp:include page="OrderHistory.jsp"></jsp:include>
+	</c:if>
+	
+	<c:if test="${isOrderedItems=='true'}">
+		<jsp:include page="orderedItemList.jsp"></jsp:include>
+	</c:if>
+	
 </body>
 </html>

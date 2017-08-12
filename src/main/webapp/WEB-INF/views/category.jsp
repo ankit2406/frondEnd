@@ -28,7 +28,7 @@
 					<form action="select_category">
 					
 					<input type="hidden" name="category_id" value="${category.category_id}">
-					<input type="submit" value="${category.category_name}">
+					<input type="submit" class="btn btn-primary" value="${category.category_name}">
 					 
 
 					

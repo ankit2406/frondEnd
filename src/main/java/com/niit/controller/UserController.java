@@ -60,6 +60,7 @@ public class UserController {
 			} else {
 				log.debug("You are buyer");
 				mv.addObject("isAdmin", "false");
+				mv.addObject("HomePage","true");
 				session.setAttribute("role", "BUYER");
 			}
 			session.setAttribute("userId", user.getUser_id());

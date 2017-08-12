@@ -237,6 +237,22 @@ public class ProductController {
 		return mv1;		
 	}
 	
+	
+	@RequestMapping("category_selection/{category_id}")
+	public ModelAndView categorySelection(@PathVariable("category_id") long id)
+	{
+		System.out.println("inside category selection..id="+id);
+		category=categoryDAO.getCategoryByID(id);
+		System.out.println("1111inside category selection2");
+		ModelAndView mv1=new ModelAndView("Home");
+		session.setAttribute("categorisedPlist", productDAO.getProductsByCategory(category));
+		session.setAttribute("product", product);
+		mv1.addObject("isUserSelectedCategory","true");
+		System.out.println("2222inside category selection2");
+
+		return mv1;		
+	}
+	
 /*	@RequestMapping("/product_details")
 	public ModelAndView productDetails(@RequestParam("id") long id)
 	{
