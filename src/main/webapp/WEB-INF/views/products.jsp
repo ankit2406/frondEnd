@@ -15,6 +15,7 @@
 	
 	<div class="container" style="margin-top:50px;">
 	<div class="row">
+	${sessionScope.userId}
 		<c:forEach var="product" items="${categorisedPlist}">
 	
     	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">

@@ -22,12 +22,12 @@
     <li><a href="contactUs">Contact Us</a></li>
     
 	<c:if test="${userId!=null}">
-
+	
 	    <li><a href="myCart">Cart</a></li>
 		<li><div class="dropdown">
 			<button class="dropbtn">My Account</button>
   			<div class="dropdown-content">
-    		<a href="#">Account Details</a>
+    		<a href="account_details/${sessionScope.userId}">Account Details</a>
     		<a href="orderHistory">Order History</a>
     		<a href="#">Change Password</a>
     		<a href="#">Sign Out</a>

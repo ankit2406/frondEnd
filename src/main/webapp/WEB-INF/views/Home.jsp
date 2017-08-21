@@ -42,7 +42,7 @@
 	<jsp:include page="HeaderMenu.jsp"></jsp:include>
 
 
-	<c:if test="${HomePage=='true'}">
+	<c:if test="${HomePage=='tru'}">
 
 		<jsp:include page="welcomePage.jsp"></jsp:include>
 
@@ -130,5 +130,8 @@
 		<jsp:include page="orderedItemList.jsp"></jsp:include>
 	</c:if>
 	
+	<c:if test="${userDetails=='true'}">
+		<jsp:include page="account_details.jsp"></jsp:include> 
+	</c:if>
 </body>
 </html>

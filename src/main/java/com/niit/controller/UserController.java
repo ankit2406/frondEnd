@@ -1,5 +1,11 @@
 package com.niit.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -52,16 +58,39 @@ public class UserController {
 			user = userDAO.getUserByEmail(email);
 
 
-			if (user.getRole().equals("ADMIN")) {
+			if (user.getRole().equals("ADMIN")) 
+			{
 				log.debug("You are admin");
 				mv.addObject("isAdmin", "true");
 				session.setAttribute("role", "ADMIN");
 				session.setAttribute("userList", userDAO.list());
-			} else {
+			}
+			else 
+			{
+				Product p;
+				List<Product> pList= new LinkedList<Product>();
+				pList.add(productDAO.get(251));
+				pList.add(productDAO.get(242));
+				pList.add(productDAO.get(239));
+				pList.add(productDAO.get(232));
+				pList.add(productDAO.get(67));
+				pList.add(productDAO.get(102));
+				pList.add(productDAO.get(235));
+				pList.add(productDAO.get(237));
+				pList.add(productDAO.get(240));
+				
+				Iterator<Product> itr=pList.iterator();  
+				 while(itr.hasNext())
+				 {  
+					 p=itr.next();
+				  // System.out.println(p.getProduct_Name());
+				 }
 				log.debug("You are buyer");
 				mv.addObject("isAdmin", "false");
 				mv.addObject("HomePage","true");
 				session.setAttribute("role", "BUYER");
+				mv.addObject("HotList", pList);
+
 			}
 			session.setAttribute("userId", user.getUser_id());
 			session.setAttribute("uname", user.getName());
@@ -125,6 +154,18 @@ public class UserController {
 			mv.addObject("message", "Error creating in user");
 			return mv;
 		}
+	}
+	
+	@RequestMapping("account_details/{userId}")
+	public ModelAndView userDetails(@PathVariable("userId") long id) throws UnsupportedEncodingException
+	{
+		System.out.println("user id is"+id);
+		
+		user=userDAO.getUserById(id);
+		ModelAndView mv = new ModelAndView("/Home");
+		mv.addObject("userDetail",user);
+		mv.addObject("userDetails", "true");
+		return mv;
 	}
 
 }

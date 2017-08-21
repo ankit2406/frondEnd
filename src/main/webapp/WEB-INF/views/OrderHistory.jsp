@@ -44,28 +44,5 @@
 
 
 
-	<div class="container">
-
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>ORDERED ITEM</th>
-					<th>QUANTITY</th>
-					<th>TOTAL PRICE</th>
-				</tr>
-			</thead>
-			<c:forEach var="item" items="${OrderedItems}">
-
-				<tbody>
-					<tr>
-						<td>${item.product.product_Name}</td>
-						<td>${item.getProduct().product_Name}</td>
-						<td>${item.getProduct().getProduct_Name()}</td>
-						<td>${item.total_price}</td>
-						</tr>
-				</tbody>
-			</c:forEach>
-		</table>
-	</div>
 </body>
 </html>

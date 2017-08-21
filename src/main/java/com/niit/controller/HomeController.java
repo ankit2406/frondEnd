@@ -1,5 +1,9 @@
 package com.niit.controller;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +39,6 @@ public class HomeController
 		ModelAndView mv = new ModelAndView("Home");
 		//model.addAttribute("message", "Thank you for visiting Shopping Cart");
 		mv.addObject("message", "Thank you for visiting Shopping Cart");
-		
 		
 		
 		
