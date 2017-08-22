@@ -20,7 +20,7 @@
 	
 	<div class="container" style="margin-top:50px;">
 	<div class="row">
-		<c:forEach var="product" items="HotList">
+		<c:forEach var="product" items="${HotList}">
 	
     	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="col-item">
@@ -58,6 +58,11 @@
         </div>
         </c:forEach>
       
+		
+		
+
+</body>
+</html>
 				
 </body>
 </html>

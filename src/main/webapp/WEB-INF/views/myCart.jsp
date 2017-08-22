@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+${message}
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -28,7 +29,7 @@
                     <tr>
                         <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="<%=request.getContextPath()%>/resources/img/${cartItem.product.getProduct_Name()}.jpg" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="#">${cartItem.product.getProduct_Name()}</a></h4>
                                 <h5 class="media-heading"> by <a href="#">${cartItem.product.getBrand()}</a></h5>

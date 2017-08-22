@@ -20,9 +20,7 @@
 	<center>
 		<h2>Welcome to BeastNutrition</h2>
 	</center>
-	${message}
 	<hr color="blue">
-
 
 	<c:choose>
 		<c:when test="${userId!=null}">
@@ -41,8 +39,9 @@
 
 	<jsp:include page="HeaderMenu.jsp"></jsp:include>
 
+<h3 align="center">${message}</h3>
 
-	<c:if test="${HomePage=='tru'}">
+	<c:if test="${HomePage=='true'}">
 
 		<jsp:include page="welcomePage.jsp"></jsp:include>
 
@@ -132,6 +131,14 @@
 	
 	<c:if test="${userDetails=='true'}">
 		<jsp:include page="account_details.jsp"></jsp:include> 
+	</c:if>
+	
+	<c:if test="${IsPasswordChange=='true'}">
+		<jsp:include page="changePassword.jsp"></jsp:include> 
+	</c:if>
+	
+	<c:if test="${EditDetails=='true'}">
+		<jsp:include page="editDetails.jsp"></jsp:include> 
 	</c:if>
 </body>
 </html>

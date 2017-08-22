@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Header Menu</title>
+  <title></title>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/menu.css">
   
@@ -16,29 +16,11 @@
   <ul class="nav nav-pills">
 
   
-    <li class="active"><a href="welcomePage">Home</a></li>
-    <li><a href="categoryPage">Supplements</a></li>
-    <li><a href="aboutUs">About Us</a></li>
-    <li><a href="contactUs">Contact Us</a></li>
+    <li class="active"><a href="index">Home</a></li>
+    <li>
     
-	<c:if test="${userId!=null}">
-	
-	    <li><a href="myCart">Cart</a></li>
-		<li><div class="dropdown">
-			<button class="dropbtn">My Account</button>
-  			<div class="dropdown-content">
-    		<a href="account_details/${sessionScope.userId}">Account Details</a>
-    		<a href="orderHistory">Order History</a>
-    		<a href="#">Change Password</a>
-    		<a href="#">Sign Out</a>
-  			</div>
-			</div> 
-		</li>
-
-	</c:if>
-	
     <div class="dropdown">
-			<button class="dropbtn">Supplements</button>
+			<button class="btn">Supplements</button>
   			<div class="dropdown-content">
   			
   			<c:forEach var="category" items="${categoryList}">
@@ -51,7 +33,27 @@
   			</c:forEach>
     		</div>
 			</div> 
-		</li>	
+    </li>
+    <li><a href="aboutUs">About Us</a></li>
+    <li><a href="contactUs">Contact Us</a></li>
+    
+	<c:if test="${userId!=null}">
+	
+	    <li><a href="myCart">Cart</a></li>
+		<li><div class="dropdown">
+			<button class="btn">My Account</button>
+  			<div class="dropdown-content">
+    		<a href="account_details">Account Details</a>
+    		<a href="orderHistory">Order History</a>
+    		<a href="passwordUpdate">Change Password</a>
+    		<a href="<c:url value="/j_spring_security_logout"/>">Sign Out</a>
+    		
+  			</div>
+			</div> 
+		</li>
+
+	</c:if>
+	
  
   </ul>
 </div>

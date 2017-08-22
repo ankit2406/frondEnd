@@ -13,28 +13,30 @@ ${message}
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
+            <form action="updateDetails">
             	<tr>
             		<td>User ID:</td>
-            		<td>${userDetail.getUser_id()}</td>
+            		<td><input type="text" value="${userDetail.getUser_id()}" disabled> </td>
             	</tr>
             	<tr>
             		<td>Name:</td>
-            		<td>${userDetail.getName()}</td>
+            		<td><input type="text" name="name" value="${userDetail.getName()}"> </td>
                	</tr>
                 <tr>
                 	<td>Email:</td>
-                	<td>${userDetail.getEmail()}</td>
+                	<td><input type="email" name="email" value="${userDetail.getEmail()}" required></td>
                 </tr> 
                 <tr>
                 	<td>Contact:</td>
-                	<td>${userDetail.getContact()}</td>
+                	<td><input type="text" name="contact" value="${userDetail.getContact()}" required></td>
                 </tr>   
                 
                 <tr>
-                	<td><a href="editDetails">Edit</a></td>
-                	<td><a href="deactivate">Deactivate Account</a></td>
+                	<td></td>
+                	<td><a href="updateDetail">Update</a></td>
                 </tr>
-					                       
+				</form>
+				</table>                     
 
 </body>
 </html>

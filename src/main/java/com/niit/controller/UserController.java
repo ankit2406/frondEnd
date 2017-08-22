@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,10 +68,14 @@ public class UserController {
 			}
 			else 
 			{
-				Product p;
+				log.debug("You are buyer");
+				mv.addObject("isAdmin", "false");
+				mv.addObject("HomePage","true");
+				session.setAttribute("role", "BUYER");
+				
+				Product p=null;
 				List<Product> pList= new LinkedList<Product>();
 				pList.add(productDAO.get(251));
-				pList.add(productDAO.get(242));
 				pList.add(productDAO.get(239));
 				pList.add(productDAO.get(232));
 				pList.add(productDAO.get(67));
@@ -79,23 +84,26 @@ public class UserController {
 				pList.add(productDAO.get(237));
 				pList.add(productDAO.get(240));
 				
-				Iterator<Product> itr=pList.iterator();  
-				 while(itr.hasNext())
-				 {  
-					 p=itr.next();
-				  // System.out.println(p.getProduct_Name());
-				 }
-				log.debug("You are buyer");
-				mv.addObject("isAdmin", "false");
+				
 				mv.addObject("HomePage","true");
-				session.setAttribute("role", "BUYER");
 				mv.addObject("HotList", pList);
+				//attach to session
+				
+				session.setAttribute("categoryList", categoryDAO.list());
+				session.setAttribute("category", category);
+				
+				session.setAttribute("product", product);
+				session.setAttribute("productList", productDAO.list());
+				
+				
 
 			}
 			session.setAttribute("userId", user.getUser_id());
 			session.setAttribute("uname", user.getName());
 
-		} else {
+		}
+		else 
+		{
 
 			mv.addObject("message", "Invalid credentials..please try again.");
 		}
@@ -122,7 +130,7 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping("/manage_logout")
+	@RequestMapping("//manage_logout")
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView("Home");
 		session.invalidate();
@@ -156,16 +164,81 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping("account_details/{userId}")
-	public ModelAndView userDetails(@PathVariable("userId") long id) throws UnsupportedEncodingException
+	@RequestMapping("account_details")
+	public ModelAndView userDetails() throws UnsupportedEncodingException
 	{
-		System.out.println("user id is"+id);
+		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
+
+		user = userDAO.getUserById(loggedInUserid);
+		//System.out.println("user id is"+id);
 		
-		user=userDAO.getUserById(id);
 		ModelAndView mv = new ModelAndView("/Home");
 		mv.addObject("userDetail",user);
 		mv.addObject("userDetails", "true");
 		return mv;
+	}
+	
+	@RequestMapping("changePassword")
+	public ModelAndView changePassword(@RequestParam("pass1") String pass1, @RequestParam("pass2") String pass2)
+	{
+		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
+		user = userDAO.getUserById(loggedInUserid);
+		ModelAndView mv = new ModelAndView("/Home");
+		
+		if(pass1.equals(pass2))
+		{
+			user.setPassword(pass1);
+			userDAO.update(user);
+			mv.addObject("message", "password changed");
+		}
+		else
+		{
+			mv.addObject("message", "password not matched");
+
+		}
+		return mv;
+	
+	}
+	
+	@RequestMapping("editDetails")
+	public ModelAndView editDetails()
+	{
+		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
+		user = userDAO.getUserById(loggedInUserid);
+		
+		ModelAndView mv = new ModelAndView("/Home");
+		mv.addObject("EditDetails","true");
+		mv.addObject("userDetail",user);
+		return mv;
+	}
+	
+	@RequestMapping("updateDetail")
+	public ModelAndView updateDetail(@RequestParam("name") String name,@RequestParam("email") String email,@RequestParam("contact") String contact)
+	{
+		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
+		user = userDAO.getUserById(loggedInUserid);
+		user.setName(name);
+		user.setEmail(email);
+		user.setContact(contact);
+		userDAO.update(user);
+		
+		ModelAndView mv = new ModelAndView("redirect:/account_details");
+		mv.addObject("userDetail",user);
+		mv.addObject("message","updated successfully");
+		return mv;
+	}
+	
+	@RequestMapping("deactivate")
+	public ModelAndView deactivateAccount()
+	{
+		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
+		user = userDAO.getUserById(loggedInUserid);
+		
+		user.setEnabled(false);
+		userDAO.update(user);
+		 ModelAndView mv=new ModelAndView("forward:/manage_logout");
+		 mv.addObject("message","Account Deactivated");
+		 return mv;
 	}
 
 }

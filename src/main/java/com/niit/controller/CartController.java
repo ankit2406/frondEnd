@@ -142,7 +142,7 @@ public class CartController {
 		// return "redirect:/views/home.jsp";
 
 		//ModelAndView mv = new ModelAndView("redirect:/home");
-		ModelAndView mv = new ModelAndView("/Home");
+		ModelAndView mv = new ModelAndView("redirect:/index");
 
 		mv.addObject("message", " Product added to Cart...");
 		log.debug("Ending of the method addToCart");
@@ -225,12 +225,14 @@ public class CartController {
 			cartItemDAO.deleteCartItem(cartItem);
 			
 		} */
+		model.addAttribute("message", " Product deleted from Cart...");
+
 		model.addAttribute("cartList", cartItemDAO.cartItemGetByCart(cart));
 		model.addAttribute("totalAmount", cart.getGrandTotal());
 		model.addAttribute("displayCart", "true");
 		model.addAttribute("cart", cart);
 		model.addAttribute("isUserClickedCart","true");
 
-		return "/Home";
+		return "forward:/myCart";
 	}
 }

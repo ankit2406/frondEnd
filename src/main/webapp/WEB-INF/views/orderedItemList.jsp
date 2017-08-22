@@ -30,7 +30,7 @@
 			</c:forEach>
 		</table>
 	</div>
-				
+				${orderList.product.product_Name}
 				${orderList.getTotal_price()}
 				${orderList.getOrderedItemId()}
 	

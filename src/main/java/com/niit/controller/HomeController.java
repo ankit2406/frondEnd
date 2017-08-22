@@ -38,10 +38,27 @@ public class HomeController
 	{
 		ModelAndView mv = new ModelAndView("Home");
 		//model.addAttribute("message", "Thank you for visiting Shopping Cart");
-		mv.addObject("message", "Thank you for visiting Shopping Cart");
 		
 		
+		Product p=null;
+		List<Product> pList= new LinkedList<Product>();
+		pList.add(productDAO.get(251));
+		pList.add(productDAO.get(239));
+		pList.add(productDAO.get(232));
+		pList.add(productDAO.get(67));
+		pList.add(productDAO.get(102));
+		pList.add(productDAO.get(235));
+		pList.add(productDAO.get(237));
+		pList.add(productDAO.get(240));
 		
+		Iterator<Product> itr=pList.iterator();  
+		 while(itr.hasNext())
+		 {  
+			 p=itr.next();
+		  // System.out.println(p.getProduct_Name());
+		 }
+		mv.addObject("HomePage","true");
+		mv.addObject("HotList", pList);
 		//attach to session
 		
 		session.setAttribute("categoryList", categoryDAO.list());
@@ -98,6 +115,40 @@ public class HomeController
 		return "Home";
 	}
 
+	@RequestMapping("/index")
+	public  ModelAndView    goToIndex()
 	
+	{
+		ModelAndView mv = new ModelAndView("Home");
+		//model.addAttribute("message", "Thank you for visiting Shopping Cart");
+		
+		
+		Product p=null;
+		List<Product> pList= new LinkedList<Product>();
+		pList.add(productDAO.get(251));
+		pList.add(productDAO.get(239));
+		pList.add(productDAO.get(232));
+		pList.add(productDAO.get(67));
+		pList.add(productDAO.get(102));
+		pList.add(productDAO.get(235));
+		pList.add(productDAO.get(237));
+		pList.add(productDAO.get(240));
+		
+		Iterator<Product> itr=pList.iterator();  
+		 while(itr.hasNext())
+		 {  
+			 p=itr.next();
+		  // System.out.println(p.getProduct_Name());
+		 }
+		mv.addObject("HomePage","true");
+		mv.addObject("HotList", pList);
+		//attach to session
+		
+		
+		
+		return mv;
+		
+		//return "Home"
+	}
 	
 }
