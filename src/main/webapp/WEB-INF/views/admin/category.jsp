@@ -13,6 +13,7 @@
 
 
 	<h2>Manage Categories</h2>
+	${message}
 
 	<div id="CreateCategory">
 

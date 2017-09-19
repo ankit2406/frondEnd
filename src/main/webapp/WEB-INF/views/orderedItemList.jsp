@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,22 +19,31 @@
 					<th>TOTAL PRICE</th>
 				</tr>
 			</thead>
-			<c:forEach var="item" items="${OrderedItems}">
+			<c:forEach var="item" items="${orderedItems}">
 
 				<tbody>
 					<tr>
 						<td>${item.product.product_Name}</td>
-						<td>${item.getProduct().product_Name}</td>
-						<td>${item.getProduct().getProduct_Name()}</td>
+						<td>${item.getSell_quantity()}</td>
 						<td>${item.total_price}</td>
 						</tr>
 				</tbody>
 			</c:forEach>
+			<tr>
+			<td></td>
+			<td><b>Shipping</b></td>
+			<td>${shipping}</td>
+			
+			</tr>
+			<tr>
+			<td></td>
+			<td><b>Grand Total</b></td>
+			<td>${gTotal+shipping}</td>
+			
+			</tr>
 		</table>
 	</div>
-				${orderList.product.product_Name}
-				${orderList.getTotal_price()}
-				${orderList.getOrderedItemId()}
+				
 	
 </body>
 </html>

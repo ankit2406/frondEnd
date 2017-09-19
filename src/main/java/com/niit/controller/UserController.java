@@ -2,6 +2,7 @@ package com.niit.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.Principal;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class UserController {
 	@Autowired
 	ProductDAO productDAO;
 
+	/*
 	@RequestMapping("/validates")
 	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
 
@@ -59,11 +61,11 @@ public class UserController {
 			user = userDAO.getUserByEmail(email);
 
 
-			if (user.getRole().equals("ADMIN")) 
+			if (user.getRole().equals("ROLE_ADMIN")) 
 			{
 				log.debug("You are admin");
 				mv.addObject("isAdmin", "true");
-				session.setAttribute("role", "ADMIN");
+				session.setAttribute("role", "ROLE_ADMIN");
 				session.setAttribute("userList", userDAO.list());
 			}
 			else 
@@ -71,7 +73,7 @@ public class UserController {
 				log.debug("You are buyer");
 				mv.addObject("isAdmin", "false");
 				mv.addObject("HomePage","true");
-				session.setAttribute("role", "BUYER");
+				session.setAttribute("role", "ROLE_BUYER");
 				
 				Product p=null;
 				List<Product> pList= new LinkedList<Product>();
@@ -108,15 +110,15 @@ public class UserController {
 			mv.addObject("message", "Invalid credentials..please try again.");
 		}
 		return mv;
-	}
+	}	*/
 
 	@RequestMapping("/manage_user_delete/{user_id}")
-	public ModelAndView deleteUser(@PathVariable("user_id") long id) {
+	public ModelAndView deleteUser(Principal principal, @PathVariable("user_id") long id) {
 		ModelAndView mv = new ModelAndView("redirect:/manageUsers");
 		mv.addObject("isAdmin", "true");
 		mv.addObject("isAdminClickedUsers", "true");
-
-		if (userDAO.deactivate(userDAO.getUserById(id))) {
+		
+		if (userDAO.deactivate(userDAO.getUserByEmail(principal.getName()))) {
 			mv.addObject("message", "successfully disabled the user");
 
 		} else {
@@ -130,6 +132,7 @@ public class UserController {
 		return mv;
 	}
 
+	/*
 	@RequestMapping("//manage_logout")
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView("Home");
@@ -139,8 +142,9 @@ public class UserController {
 
 		session.setAttribute("product", product);
 		session.setAttribute("productList", productDAO.list());
+		mv.addObject("message","Successfully logged out");
 		return mv;
-	}
+	}	*/
 
 	@RequestMapping("/create_user")
 	public ModelAndView createUser(@RequestParam("name") String name, @RequestParam("email") String email,
@@ -165,11 +169,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("account_details")
-	public ModelAndView userDetails() throws UnsupportedEncodingException
+	public ModelAndView userDetails(Principal principal) throws UnsupportedEncodingException
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
 
-		user = userDAO.getUserById(loggedInUserid);
+		user = userDAO.getUserByEmail(principal.getName());
 		//System.out.println("user id is"+id);
 		
 		ModelAndView mv = new ModelAndView("/Home");
@@ -179,10 +182,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("changePassword")
-	public ModelAndView changePassword(@RequestParam("pass1") String pass1, @RequestParam("pass2") String pass2)
+	public ModelAndView changePassword(Principal principal, @RequestParam("pass1") String pass1, @RequestParam("pass2") String pass2)
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
-		user = userDAO.getUserById(loggedInUserid);
+		
+		user = userDAO.getUserByEmail(principal.getName());
 		ModelAndView mv = new ModelAndView("/Home");
 		
 		if(pass1.equals(pass2))
@@ -201,10 +204,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("editDetails")
-	public ModelAndView editDetails()
+	public ModelAndView editDetails(Principal principal)
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
-		user = userDAO.getUserById(loggedInUserid);
+		
+		user = userDAO.getUserByEmail(principal.getName());
 		
 		ModelAndView mv = new ModelAndView("/Home");
 		mv.addObject("EditDetails","true");
@@ -213,10 +216,9 @@ public class UserController {
 	}
 	
 	@RequestMapping("updateDetail")
-	public ModelAndView updateDetail(@RequestParam("name") String name,@RequestParam("email") String email,@RequestParam("contact") String contact)
+	public ModelAndView updateDetail(Principal principal, @RequestParam("name") String name,@RequestParam("email") String email,@RequestParam("contact") String contact)
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
-		user = userDAO.getUserById(loggedInUserid);
+		user = userDAO.getUserByEmail(principal.getName());
 		user.setName(name);
 		user.setEmail(email);
 		user.setContact(contact);
@@ -229,10 +231,9 @@ public class UserController {
 	}
 	
 	@RequestMapping("deactivate")
-	public ModelAndView deactivateAccount()
+	public ModelAndView deactivateAccount(Principal principal)
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
-		user = userDAO.getUserById(loggedInUserid);
+		user = userDAO.getUserByEmail(principal.getName());
 		
 		user.setEnabled(false);
 		userDAO.update(user);

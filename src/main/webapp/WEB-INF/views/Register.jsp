@@ -22,7 +22,6 @@
 		<div class="container">
 			<div class="row main">
 				<div class="main-login main-center">
-				<h5>Sign up once and watch any of our free demos.</h5>
 					<form class="" method="post" action="create_user">
 						
 						<div class="form-group">

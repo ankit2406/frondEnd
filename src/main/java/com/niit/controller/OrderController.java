@@ -1,5 +1,6 @@
 package com.niit.controller;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -66,14 +67,13 @@ public class OrderController
 	
 	
 	@RequestMapping("/getOrderData")
-	public String getOrderDetails(Model mv)
+	public String getOrderDetails(Model mv, Principal principal)
 	{
 		//System.out.println("inside ordercontroller");
 		//mv.addObject("isUser", "true");
 		int shipping;
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
 
-		user = userDAO.getUserById(loggedInUserid);
+		user = userDAO.getUserByEmail(principal.getName());
 		cart = user.getCart();
 		int cartSize = cart.getCartItemCount();
 		if(cart.getGrandTotal()<500)
@@ -94,18 +94,16 @@ public class OrderController
 	}
 	
 	@RequestMapping("setOrderDetails")
-	public String setOrderDetails(Model mv, String fname, String lname, String phone, String address,String qty,
+	public String setOrderDetails(Model mv,Principal principal, String fname, String lname, String phone, String address,String qty,
 											String city,String state, String pincode, String shippingCharge, String orderTotal)
 	{
-		//System.out.println(fname);
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
-		user=userDAO.getUserById(loggedInUserid);
+		
+		user=userDAO.getUserByEmail(principal.getName());
 		cart=user.getCart();
 		List<CartItem> items = cartItemDAO.cartItemGetByCart(cart);
 		List<OrderedItems> ordItems;
 		
 		
-		System.out.println(loggedInUserid);
 		LocalDateTime datetime1 = LocalDateTime.now();  
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
 		String orderDate = datetime1.format(format);  
@@ -153,15 +151,13 @@ public class OrderController
 	}
 	
 	@RequestMapping("orderHistory")
-	public String orderHistory(Model mv)
+	public String orderHistory(Model mv,Principal principal)
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
-
-		user = userDAO.getUserById(loggedInUserid);
+		
+		user = userDAO.getUserByEmail(principal.getName());
 		System.out.println(user.getName());
 		OrderDetails o1 = null;
 		List<OrderDetails> orders = orderDAO.getOrderDetailsByUser(user);
-		List<OrderedItems> itm = orderedItemsDAO.getItemsByOrderID(275);
 
 		Iterator<OrderDetails> it = orders.iterator();
 		
@@ -172,40 +168,36 @@ public class OrderController
 		}*/
 		mv.addAttribute("isOrderHistory","true");
 		mv.addAttribute("orderList", orders);
-		mv.addAttribute("OrderedItems",itm);
-		
 		//System.out.println(o1.getFname());
 		return "/Home";
 	}
 	
 	@RequestMapping("viewOrderedItems")
-	public String viewOrderedItem(Model mv, @RequestParam("order_id") long orderID)
+	public String viewOrderedItem(Model mv,Principal principal, @RequestParam("order_id") long orderID)
 	{
 		System.out.println("OrdreID="+orderID);
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();
 		//long orderID=new Long(Order_id).longValue();
 		//System.out.println("casted Id="+orderID);
-		user = userDAO.getUserById(loggedInUserid);
+		user = userDAO.getUserByEmail(principal.getName());
 		
-		List<OrderDetails> orders = orderDAO.getOrderDetailsByUser(user);
-
+		int gTotal=0;
 		List<OrderedItems> itm = orderedItemsDAO.getItemsByOrderID(orderID);
-		System.out.println("list size "+itm.size()+" "+orders.size());
 		Iterator<OrderedItems> it = itm.iterator();
-		OrderedItems o1;
+		OrderedItems o1=null;
+		OrderDetails od;
 		while(it.hasNext())
 		{
 			o1=(OrderedItems)it.next();
 			System.out.println(o1.getTotal_price());
-			System.out.println(o1.getProduct().getProduct_Name());
-			System.out.println(o1.getOrderedItemId());
-			mv.addAttribute("orderList",o1);
+			gTotal=gTotal+o1.getTotal_price();
+			mv.addAttribute("gTotal",gTotal);
 		}
-		System.out.println("list size "+itm.size()+" "+orders.size());
-
+		System.out.println("list size is "+itm.size());
+		System.out.println(o1.getOrderDetails().getFname());
 		System.out.println("inside vieworderedItems");
 		mv.addAttribute("isOrderedItems", "true");
-		mv.addAttribute("OrderedItems",itm);
+		mv.addAttribute("orderedItems",itm);
+		mv.addAttribute("shipping",o1.getOrderDetails().getShipping());
 		
 		return "/Home";
 	}

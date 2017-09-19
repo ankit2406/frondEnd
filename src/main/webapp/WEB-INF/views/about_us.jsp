@@ -7,7 +7,7 @@
 <title>About Us</title>
 </head>
 <body>
-
+	<div container>
 	<h3>Hello!</h3>
 
 	<p>We're BeastNutrition- a great place for people serious about
@@ -30,6 +30,6 @@
 		nutrition stores to find the supplement you need. We have over 200
 		brands & authorized vendors listed on our website. All just to make
 		sure what you get is right.</p>
-
+	</div>
 </body>
 </html>

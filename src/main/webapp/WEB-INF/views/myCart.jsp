@@ -61,9 +61,10 @@ ${message}
                         <td>   </td>
                         <td>   </td>
                         <td>
+                        <a href="index">
                         <button type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                        </button></td>
+                        </button></a></td>
                         <td>
                         <a href="getOrderData"><button type="button" class="btn btn-success">
                             Checkout<span class="glyphicon glyphicon-play"></span>

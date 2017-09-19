@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
+ <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/home.css">
 <script src="js/jquery-1.11.3.min.js"></script>
 
 <script src="js/bootstrap.min.js"></script>
@@ -22,19 +22,24 @@
 	</center>
 	<hr color="blue">
 
-	<c:choose>
-		<c:when test="${userId!=null}">
-   	 		welcome <%=session.getAttribute("uname")%>
-			<a href="manage_logout">Logout</a>
-
-		</c:when>
-		<c:otherwise>
-			<a href="LoginPage"> Signin</a>
-			<a href="RegistrationPage"> Signup</a> &nbsp; &nbsp; &nbsp;
 	
-   	 </c:otherwise>
-	</c:choose>
 
+
+	<c:if test="${pageContext.request.userPrincipal.name==null }">
+    <ul class="nav navbar-nav navbar-right">
+     <li><a href="RegistrationPage"><span class="glyphicon glyphicon-user"></span>
+       Sign Up</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+     <li><a href="/ShopFrontEnd/LoginPage"><span class="glyphicon glyphicon-user"></span>
+       Login</a></li>
+    </ul></c:if>
+    <ul class="nav navbar-nav navbar-right">
+    <c:url value="/j_spring_security_logout" var="logout"></c:url>
+    <c:if test="${pageContext.request.userPrincipal.name!=null }">
+     <li><a href="${logout}"><span class="glyphicon glyphicon-user"></span>
+       Logout</a></li></c:if>
+    </ul>
 
 
 	<jsp:include page="HeaderMenu.jsp"></jsp:include>

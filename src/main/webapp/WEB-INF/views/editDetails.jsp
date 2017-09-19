@@ -13,7 +13,7 @@ ${message}
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
-            <form action="updateDetails">
+            <form action="updateDetail">
             	<tr>
             		<td>User ID:</td>
             		<td><input type="text" value="${userDetail.getUser_id()}" disabled> </td>
@@ -33,7 +33,7 @@ ${message}
                 
                 <tr>
                 	<td></td>
-                	<td><a href="updateDetail">Update</a></td>
+                	<td><input type="submit" value="Update"></td>
                 </tr>
 				</form>
 				</table>                     

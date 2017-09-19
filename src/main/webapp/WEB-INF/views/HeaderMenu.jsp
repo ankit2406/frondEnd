@@ -37,7 +37,7 @@
     <li><a href="aboutUs">About Us</a></li>
     <li><a href="contactUs">Contact Us</a></li>
     
-	<c:if test="${userId!=null}">
+	<c:if test="${pageContext.request.userPrincipal.name!=null}">
 	
 	    <li><a href="myCart">Cart</a></li>
 		<li><div class="dropdown">

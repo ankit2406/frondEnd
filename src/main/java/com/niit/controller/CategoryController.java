@@ -82,7 +82,7 @@ public class CategoryController {
 		if (categoryDAO.deleteById(id)) {
 			mv.addObject("message", "successfully deleted the category");
 		} else {
-			mv.addObject("message", "Not able to delte the category");
+			mv.addObject("message", "Not able to delete the category");
 		}
 
 		session.setAttribute("categoryList", categoryDAO.list());
@@ -146,11 +146,12 @@ public class CategoryController {
 																					// not
 																					// exist
 			return mv;
-		} else // actually else is not required if return statement is there in
+		} 
+		else // actually else is not required if return statement is there in
 				// if condition
 		{
 			categoryDAO.update(category);
-			mv.addObject("message", "Category Updated Successfully with id :" + id);
+			mv.addObject("message", "Category Updated Successfully ");
 			log.debug("Category Updated Successfully");
 		}
 

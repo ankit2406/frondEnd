@@ -1,5 +1,6 @@
 package com.niit.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -57,17 +58,18 @@ public class CartController {
 	private HttpSession session;
 
 
+
 	@RequestMapping("/Cart_add/{id}")
-	public ModelAndView addToCart(@PathVariable("id") long pid) {
+	public String addToCart(Model mv,@PathVariable("id") long pid,Principal principal) {
 		System.out.println("id is" + pid);
 		log.debug("Starting of the method addToCart");
 		// get the product based on product id
-		
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
-		user = userDAO.getUserById(loggedInUserid);
+		//ModelAndView mv = new ModelAndView("redirect:/");
+
+		try{
+		user = userDAO.getUserByEmail(principal.getName());
 		cart = user.getCart();
 		product = productDAO.get(pid);
-		System.out.println("userid is"+loggedInUserid+" product id"+pid);
 		
 		if(cartItemDAO.getCartItemByUserIdAndProductId(cart, product)!=null)
 		{
@@ -104,8 +106,14 @@ public class CartController {
 			cartItemDAO.addCartItem(cartItem);
 		}
 		//cartItem=new CartItem();
-			
-		
+		mv.addAttribute("message", " Product added to Cart...");
+		log.debug("Ending of the method addToCart");
+		return "redirect:/myCart";
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		
 		// session.getAttribute("userId");
@@ -142,20 +150,23 @@ public class CartController {
 		// return "redirect:/views/home.jsp";
 
 		//ModelAndView mv = new ModelAndView("redirect:/home");
-		ModelAndView mv = new ModelAndView("redirect:/index");
 
-		mv.addObject("message", " Product added to Cart...");
-		log.debug("Ending of the method addToCart");
-		return mv;
+		
+		return "redirect:/NoLogin";
 
 	}
 
+
 	@RequestMapping(value = "/myCart", method = RequestMethod.GET)
-	public String myCart(Model model) {
+	public String myCart(Model model, Principal principal) {
 		log.debug("Starting of the method myCart");
 		// get the logged-in user id
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
-																					// session.getAttribute("userId");
+		//long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
+		String email = principal.getName();
+		System.out.println("EMail: "+email);
+		
+		user=userDAO.getUserByEmail(email);
+		// session.getAttribute("userId");
 
 		/*
 		 * if (loggedInUserid == null) { Authentication auth =
@@ -167,9 +178,9 @@ public class CartController {
 		 * }
 		 */
 
-		if (loggedInUserid != 0L) 
+		if (user != null) 
 		{
-			user = userDAO.getUserById(loggedInUserid);
+			//user = userDAO.getUserById(loggedInUserid);
 			cart = user.getCart();
 			int cartSize = cart.getCartItemCount();
 
@@ -193,11 +204,9 @@ public class CartController {
 	}
 	
 	@RequestMapping("/cart_delete/{id}")
-	public String delCart(Model model,@PathVariable("id") long id)
+	public String delCart(Model model,Principal principal,@PathVariable("id") long id)
 	{
-		long loggedInUserid = ((Number) session.getAttribute("userId")).longValue();// (long)
-		System.out.println(loggedInUserid+" "+id);
-		user = userDAO.getUserById(loggedInUserid);
+		user = userDAO.getUserByEmail(principal.getName());
 		System.out.println(user.getName());
 		 cart  = user.getCart();
 		 int oldCartQty=cart.getCartItemCount();
@@ -233,6 +242,6 @@ public class CartController {
 		model.addAttribute("cart", cart);
 		model.addAttribute("isUserClickedCart","true");
 
-		return "forward:/myCart";
+		return "redirect:/myCart";
 	}
 }
